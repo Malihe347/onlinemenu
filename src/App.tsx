@@ -11,8 +11,6 @@ import {
 } from 'lucide-react';
 import { MAIN_LINES } from './data/menuData';
 import type { SubItem } from './data/menuData';
-
-// آیکون استاندارد اینستاگرام به صورت SVG برای جلوگیری از ارور lucide-react
 const InstagramIcon = ({ className = 'w-5 h-5' }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
@@ -36,6 +34,7 @@ export default function App() {
   const [wifiCopied, setWifiCopied] = useState(false);
   const [showQr, setShowQr] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedItem, setSelectedItem] = useState<string | null>(null);
 
   const isRtl = lang === 'fa';
 
@@ -47,15 +46,18 @@ export default function App() {
 
   const activeCategoryData = MAIN_LINES.find((cat) => cat.id === selectedCategory);
 
+  //QR code
+  const currentMenuUrl = typeof window !== 'undefined' ? window.location.href : 'https://elora.menu';
+
   return (
     <div
       dir={isRtl ? 'rtl' : 'ltr'}
       className="relative min-h-[100dvh] w-full flex justify-center items-center overflow-hidden bg-[#FAF7F2] font-sans select-none"
     >
-      {/* کانتینر اصلی موبایل */}
+      {/*mobile container*/}
       <div className="relative w-full max-w-md h-[100dvh] flex flex-col justify-between overflow-hidden shadow-2xl bg-[#FAF7F2]">
 
-        {/* پس‌زمینه محو کافه */}
+        {/* Background*/}
         <div
           className="absolute inset-0 bg-cover bg-center opacity-70"
           style={{
@@ -63,7 +65,7 @@ export default function App() {
           }}
         />
 
-        {/* هدر: سوئیچ زبان */}
+        {/*language*/}
         <header className="relative z-10 pt-4 px-6 flex justify-end items-center">
           <button
             onClick={() => setLang(lang === 'fa' ? 'en' : 'fa')}
@@ -73,7 +75,7 @@ export default function App() {
           </button>
         </header>
 
-        {/* لوگو و عنوان کافه الورا */}
+        {/* logo*/}
         <div className="relative z-10 flex flex-col items-center mt-2 px-6">
           <div className="w-36 py-3 rounded-2xl bg-[#A3785E] border border-[#8C624E]/30 flex flex-col items-center justify-center shadow-md">
             <h1 className="text-2xl font-black tracking-widest text-[#FAF7F2] font-serif m-0">
@@ -85,10 +87,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* محتوای اصلی: لیست دسته‌بندی‌ها یا محصولات */}
-        <main className="relative z-10 px-6 py-4 flex-1 overflow-y-auto flex flex-col justify-center">
+        {/*main context*/}
+        <main className="relative z-10 px-6 py-4 flex-1 overflow-y-auto flex flex-col justify-start sm:justify-center">
           {!selectedCategory ? (
-            <div className="flex flex-col gap-3.5">
+            <div className="flex flex-col gap-3.5 my-auto w-full pt-2 pb-2">
               {MAIN_LINES.map((line) => (
                 <button
                   key={line.id}
@@ -110,10 +112,13 @@ export default function App() {
             </div>
           ) : (
             <div className="flex flex-col h-full py-2 animate-fadeIn">
-              {/* دکمه بازگشت */}
+              {/* back button*/}
               <div className="flex items-center justify-between mb-4">
                 <button
-                  onClick={() => setSelectedCategory(null)}
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setSelectedItem(null);
+                  }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#E8DCCF] border border-[#D4C4B3] text-[#4A3525] text-xs font-bold hover:bg-[#DFCDBF] transition shadow-sm"
                 >
                   <ArrowLeft className={`w-4 h-4 ${isRtl ? '' : 'rotate-180'}`} />
@@ -128,51 +133,69 @@ export default function App() {
                 </span>
               </div>
 
-              {/* لیست آیتم‌های لاین به همراه عکس */}
+              {/* Items*/}
               <div className="space-y-3 overflow-y-auto pr-1 flex-1">
-                {activeCategoryData?.items.map((item: SubItem) => (
-                  <div
-                    key={item.id}
-                    className="bg-[#E8DCCF]/90 backdrop-blur-md border border-[#D4C4B3] rounded-2xl p-3 shadow-sm flex items-center gap-3 relative"
-                  >
-                    {item.popular && (
-                      <span className="absolute top-2.5 left-2.5 bg-[#A3785E] text-white text-[9px] font-bold px-2 py-0.5 rounded-full z-10">
-                        {isRtl ? 'پرفروش' : 'Popular'}
-                      </span>
-                    )}
+                {activeCategoryData?.items.map((item: SubItem) => {
+                  const isItemOpen = selectedItem === item.id;
 
-                    {/* عکس آیتم */}                   
-                    {item.imageUrl && (
-                      <img
-                        src={item.imageUrl}
-                        alt={typeof item.title === 'string' ? item.title : (isRtl ? item.title?.fa : item.title?.en)}
-                        className="w-16 h-16 rounded-xl object-cover border border-[#D4C4B3] shadow-inner flex-shrink-0 bg-[#E8DCCF]"
-                        onError={(e) => {                  
-                          (e.target as HTMLImageElement).src =
-                            'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80';
-                        }}
-                      />
-                    )}
-
-
-                    {/* اطلاعات آیتم */}
-                    <div className="flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-bold text-[#4A3525] text-sm leading-tight">
-                          {typeof item.title === 'string' ? item.title : (isRtl ? item.title?.fa : item.title?.en)}
-                        </h3>
-                        <p className="text-[11px] text-[#735543] mt-0.5 leading-relaxed line-clamp-2">
-                          {typeof item.desc === 'string' ? item.desc : (isRtl ? item.desc?.fa : item.desc?.en)}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-between pt-1 mt-1 border-t border-[#D4C4B3]/50">
-                        <span className="font-bold text-[#8C624E] text-xs">
-                          {item.price.toLocaleString('fa-IR')} {isRtl ? 'تومان' : 'Tomans'}
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setSelectedItem(isItemOpen ? null : item.id)}
+                      aria-expanded={isItemOpen}
+                      className="w-full text-right bg-[#E8DCCF]/90 backdrop-blur-md border border-[#D4C4B3] rounded-2xl p-3 shadow-sm relative text-[#4A3525] transition-all"
+                    >
+                      {item.popular && (
+                        <span className="absolute top-2.5 left-2.5 bg-[#A3785E] text-white text-[9px] font-bold px-2 py-0.5 rounded-full z-10">
+                          {isRtl ? 'پرفروش' : 'Popular'}
                         </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                      )}
+
+                      {/*  Responsive*/}
+                      <div className="flex flex-col sm:flex-row items-center gap-3">
+                        {item.imageUrl && (
+                          <img
+                            src={item.imageUrl}
+                            alt={typeof item.title === 'string' ? item.title : (isRtl ? item.title?.fa : item.title?.en)}
+                            className={`rounded-xl object-cover border border-[#D4C4B3] shadow-inner flex-shrink-0 bg-[#E8DCCF] transition-all duration-300 ${
+                              isItemOpen
+                                ? 'w-20 h-20 sm:w-28 sm:h-28'
+                                : 'w-16 h-16'
+                            }`}
+                            onError={(e) => {
+                              (e.currentTarget as HTMLImageElement).src =
+                                'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&auto=format&fit=crop&q=80';
+                            }}
+                          />
+                        )}
+
+                        <div className="flex-1 w-full flex flex-col justify-between">
+                          <div>
+                            <h3 className="font-bold text-sm leading-tight">
+                              {typeof item.title === 'string' ? item.title : (isRtl ? item.title?.fa : item.title?.en)}
+                            </h3>
+                            <p className="text-[11px] text-[#735543] mt-0.5 leading-relaxed line-clamp-1">
+                              {typeof item.desc === 'string' ? item.desc : (isRtl ? item.desc?.fa : item.desc?.en)}
+                            </p>
+                          </div>
+                          <div className="flex items-center justify-between pt-1 mt-1 border-t border-[#D4C4B3]/50">
+                            <span className="font-bold text-[#8C624E] text-xs">
+                              {item.price.toLocaleString('fa-IR')} {isRtl ? 'تومان' : 'Tomans'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>             
+                      {isItemOpen && (
+                        <div className="mt-3 pt-3 border-t border-[#D4C4B3] text-start animate-fadeIn">
+                          <p className="text-[11px] text-[#735543] leading-relaxed">
+                            {typeof item.desc === 'string' ? item.desc : (isRtl ? item.desc?.fa : item.desc?.en)}
+                          </p>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -246,7 +269,7 @@ export default function App() {
               <p className="text-[11px] text-[#8C624E] mb-4">ELORA Lounge</p>
               <div className="p-3 bg-white rounded-2xl shadow-inner inline-block">
                 <img
-                  src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=https://elora.menu"
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=140x140&data=${encodeURIComponent(currentMenuUrl)}`}
                   alt="QR Code"
                   className="w-32 h-32"
                 />

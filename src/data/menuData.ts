@@ -66,7 +66,7 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 140000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&auto=format&fit=crop&q=80',
+                    '/img/breakfast03.jpg',
             },
         ],
     },
@@ -92,7 +92,7 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 240000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80',
+                    '/img/lunch01.jpg',
                 popular: true,
             },
             {
@@ -107,7 +107,7 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 210000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=600&auto=format&fit=crop&q=80',
+                    '/img/lunch02.jpg',
             },
         ],
     },
@@ -135,6 +135,36 @@ export const MAIN_LINES: MainLine[] = [
                 imageUrl:
                     '/img/dinner01.jpg',
                 popular: true,
+            },
+            {
+                id: 'd2',
+                title: {
+                    fa: 'اسنک',
+                    en: 'Snack',
+                },
+                desc: {
+                    fa: 'اسنک مرغ ',
+                    en: 'chicken snack',
+                },
+                price: 2260000,
+                imageUrl:
+                    '/img/dinner02.jpg',
+                popular: false,
+            },
+            {
+                id: 'd3',
+                title: {
+                    fa: 'بال مرغ بوفالو',
+                    en: 'Buffalo Chicken Wings',
+                },
+                desc: {
+                    fa: 'بال مرغ بوفالو اسپایسی',
+                    en: 'Buffalo Chicken Wings',
+                },
+                price: 260000,
+                imageUrl:
+                    '/img/dinner03.jpg',
+                popular: false,
             },
 
         ],
@@ -166,8 +196,8 @@ export const MAIN_LINES: MainLine[] = [
             {
                 id: 'c2',
                 title: {
-                    fa: 'فلت وایت',
-                    en: 'Flat White',
+                    fa: 'کاپوچینو',
+                    en: 'cappuccino',
                 },
                 desc: {
                     fa: 'ریسترتو دوبل ترکیب‌شده با میکروفوم ابریشمی شیر',
@@ -175,8 +205,8 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 95000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?w=600&auto=format&fit=crop&q=80',
-                popular: true,
+                    '/img/cappuccino.jpg',
+                popular: false,
             },
             {
                 id: 'c3',
@@ -191,7 +221,7 @@ export const MAIN_LINES: MainLine[] = [
                 price: 65000,
                 imageUrl:
                     '/img/tea.jpg',
-                popular: true,
+                popular: false,
             },
             {
                 id: 'c4',
@@ -206,7 +236,7 @@ export const MAIN_LINES: MainLine[] = [
                 price: 195000,
                 imageUrl:
                     '/img/masalachai.jpg',
-                popular: true,
+                popular: false,
             },
             {
                 id: 'c5',
@@ -221,7 +251,7 @@ export const MAIN_LINES: MainLine[] = [
                 price: 195000,
                 imageUrl:
                     '/img/hotchocolate.jpg',
-                popular: true,
+                popular: false,
             },
 
         ],
@@ -248,8 +278,8 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 135000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600&auto=format&fit=crop&q=80',
-                popular: true,
+                    '/img/dessert01.jpg',
+                popular: false,
             },
             {
                 id: 'de2',
@@ -263,7 +293,37 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 90000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&auto=format&fit=crop&q=80',
+                    '/img/dessert02.jpg',
+            },
+             {
+                id: 'de3',
+                title: {
+                    fa: 'کروسان پسته',
+                    en: 'pistachio croissant',
+                },
+                desc: {
+                    fa: 'کروسان با روکش پسته',
+                    en: 'Pistachio croissant',
+                },
+                price: 135000,
+                imageUrl:
+                    '/img/breakfast01.jpg',
+                popular: false,
+            },
+             {
+                id: 'de4',
+                title: {
+                    fa: 'رول دارچینی',
+                    en: 'Cinnamon roll',
+                },
+                desc: {
+                    fa: 'رول دارچینی پخت تازه',
+                    en: 'Cinnamon roll',
+                },
+                price: 135000,
+                imageUrl:
+                    '/img/breakfast02.jpg',
+                popular: false,
             },
         ],
     },
@@ -292,7 +352,7 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 110000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop&q=80',
+                    '/img/drink01.jpg',
                 popular: true,
             },
             {
@@ -307,7 +367,7 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 105000,
                 imageUrl:
-                    'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=600&auto=format&fit=crop&q=80',
+                    '/img/drink02.jpg',
             },
             {
                 id: 'dr3',
@@ -321,8 +381,8 @@ export const MAIN_LINES: MainLine[] = [
                 },
                 price: 210000,
                 imageUrl:
-                    '/img/icelatte.jpg',
-                popular: true,
+                    '/img/drink03.jpg',
+                popular: false,
             },
         ],
     },
