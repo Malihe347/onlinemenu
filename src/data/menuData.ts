@@ -146,7 +146,7 @@ export const MAIN_LINES: MainLine[] = [
                     fa: 'اسنک مرغ ',
                     en: 'chicken snack',
                 },
-                price: 2260000,
+                price: 226000,
                 imageUrl:
                     '/img/dinner02.jpg',
                 popular: false,
@@ -295,7 +295,7 @@ export const MAIN_LINES: MainLine[] = [
                 imageUrl:
                     '/img/dessert02.jpg',
             },
-             {
+            {
                 id: 'de3',
                 title: {
                     fa: 'کروسان پسته',
@@ -310,7 +310,7 @@ export const MAIN_LINES: MainLine[] = [
                     '/img/breakfast01.jpg',
                 popular: false,
             },
-             {
+            {
                 id: 'de4',
                 title: {
                     fa: 'رول دارچینی',
